@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dominic CURTIS : OpenAI API</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Dominic CURTIS</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Dokumentation_532120676.html">Dokumentation</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Dominic CURTIS : OpenAI API
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Dominic CURTIS</span>, last modified on 09.03.2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p><br/></p><h2 class="anchor-heading" id="OpenAIAPI-Introduction"><a class="external-link" href="https://platform.openai.com/docs/api-reference/introduction" rel="nofollow" style="text-decoration: none;">Introduction</a></h2><p><br/></p><p>You can interact with the API through HTTP requests from any language, via our official Python bindings, our official Node.js library, or a<span> </span><a class="external-link" href="https://platform.openai.com/docs/libraries/community-libraries" rel="nofollow" style="text-decoration: none;">community-maintained library</a>.</p><p>To install the official Python bindings, run the following command:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-bash"><span>pip install openai</span></code></pre><p>To install the official Node.js library, run the following command in your Node.js project directory:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-bash"><span>npm install openai</span></code></pre><p><br/></p><h2 class="anchor-heading" id="OpenAIAPI-Authentication">Authentication</h2><p>The OpenAI API uses API keys for authentication. Visit your<span> </span><a class="external-link" href="https://platform.openai.com/account/api-keys" rel="nofollow" style="text-decoration: none;">API Keys</a><span> </span>page to retrieve the API key you'll use in your requests.</p><p><strong>Remember that your API key is a secret!</strong><span> </span>Do not share it with others or expose it in any client-side code (browsers, apps). Production requests must be routed through your own backend server where your API key can be securely loaded from an environment variable or key management service.</p><p>All API requests should include your API key in an<span> </span><code>Authorization</code><span> </span>HTTP header as follows:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-bash"><span>Authorization: Bearer YOUR_API_KEY</span></code></pre><p><br/></p><h3 class="anchor-heading" id="OpenAIAPI-Requestingorganization">Requesting organization</h3><p>For users who belong to multiple organizations, you can pass a header to specify which organization is used for an API request. Usage from these API requests will count against the specified organization's subscription quota.</p><p>Example curl command:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-bash"><code><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span></code><span>curl https://api.openai.com/v1/models \ </span><span> -H </span><span class="hljs-string" style="color: rgb(0,166,125);">'Authorization: Bearer YOUR_API_KEY'</span><span> \ </span><span> -H </span><span class="hljs-string" style="color: rgb(0,166,125);">'OpenAI-Organization: org-5WvxZOrBeoBytgs0W0dn1dD7'</span></code></pre><p>Example with the<span> </span><code>openai</code><span> </span>Python package:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-python"><code><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span><span class="react-syntax-highlighter-line-number">4
+</span><span class="react-syntax-highlighter-line-number">5
+</span></code><span class="hljs-keyword" style="color: rgb(46,149,211);">import</span><span> os </span><span class="hljs-keyword" style="color: rgb(46,149,211);">import</span><span> openai </span><span>openai.organization = </span><span class="hljs-string" style="color: rgb(0,166,125);">&quot;org-5WvxZOrBeoBytgs0W0dn1dD7&quot;</span><span> </span><span>openai.api_key = os.getenv(</span><span class="hljs-string" style="color: rgb(0,166,125);">&quot;OPENAI_API_KEY&quot;</span><span>) </span><span>openai.Model.</span><span class="hljs-built_in" style="color: rgb(233,149,12);">list</span><span>()</span></code></pre><p>Example with the<span> </span><code>openai</code><span> </span>Node.js package:</p><pre class="hljs syntax-highlighter dark code-sample-pre"><code class="language-javascript"><code><span class="react-syntax-highlighter-line-number">1
+</span><span class="react-syntax-highlighter-line-number">2
+</span><span class="react-syntax-highlighter-line-number">3
+</span><span class="react-syntax-highlighter-line-number">4
+</span><span class="react-syntax-highlighter-line-number">5
+</span><span class="react-syntax-highlighter-line-number">6
+</span><span class="react-syntax-highlighter-line-number">7
+</span></code><span class="hljs-keyword" style="color: rgb(46,149,211);">import</span><span> { Configuration, OpenAIApi } </span><span class="hljs-keyword" style="color: rgb(46,149,211);">from</span><span> </span><span class="hljs-string" style="color: rgb(0,166,125);">&quot;openai&quot;</span><span>; </span><span class="hljs-keyword" style="color: rgb(46,149,211);">const</span><span> configuration = </span><span class="hljs-keyword" style="color: rgb(46,149,211);">new</span><span> Configuration({ </span><span> </span><span class="hljs-attr" style="color: rgb(223,48,121);">organization</span><span>: </span><span class="hljs-string" style="color: rgb(0,166,125);">&quot;org-5WvxZOrBeoBytgs0W0dn1dD7&quot;</span><span>, </span><span> </span><span class="hljs-attr" style="color: rgb(223,48,121);">apiKey</span><span>: process.env.OPENAI_API_KEY, </span>}); <span class="hljs-keyword" style="color: rgb(46,149,211);">const</span><span> openai = </span><span class="hljs-keyword" style="color: rgb(46,149,211);">new</span><span> OpenAIApi(configuration); </span><span class="hljs-keyword" style="color: rgb(46,149,211);">const</span><span> response = </span><span class="hljs-keyword" style="color: rgb(46,149,211);">await</span><span> openai.listEngines();</span></code></pre><p>Organization IDs can be found on your<span> </span><a class="external-link" href="https://platform.openai.com/account/org-settings" rel="nofollow" style="text-decoration: none;">Organization settings</a><span> </span>page.</p>
+                    </div>
+
+                                        
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on 15.03.2023 12:39</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>

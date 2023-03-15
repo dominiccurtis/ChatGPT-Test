@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dominic CURTIS : Tomcat für BudgeTrack-Entwicklung einrichten</title>
+        <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body class="theme-default aui-theme-default">
+        <div id="page">
+            <div id="main" class="aui-page-panel">
+                <div id="main-header">
+                    <div id="breadcrumb-section">
+                        <ol id="breadcrumbs">
+                            <li class="first">
+                                <span><a href="index.html">Dominic CURTIS</a></span>
+                            </li>
+                                                    <li>
+                                <span><a href="Anleitungen_532120654.html">Anleitungen</a></span>
+                            </li>
+                                                </ol>
+                    </div>
+                    <h1 id="title-heading" class="pagetitle">
+                                                <span id="title-text">
+                            Dominic CURTIS : Tomcat für BudgeTrack-Entwicklung einrichten
+                        </span>
+                    </h1>
+                </div>
+
+                <div id="content" class="view">
+                    <div class="page-metadata">
+                        
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'> Dominic CURTIS</span> on 09.03.2023
+                        </div>
+                    <div id="main-content" class="wiki-content group">
+                    <p>Für die Entwicklung einer BudgeTrack-Seite benötigt man einen Tomcat mit einer DataSource.</p><p>Will man nun auch noch das Berechtigungssystem mittels SSO lokal verwenden, so kann man sich dauch noch JOSSO dazu geben. Damit das ganz einfach geht, gibt es ein Maven-Template (maven-archetype).</p><h2 id="TomcatfürBudgeTrackEntwicklungeinrichten-PluginAufruf">Plugin Aufruf</h2><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Aufruf PS</b></div><div class="codeContent panelContent pdl">
+<pre class="syntaxhighlighter-pre" data-syntaxhighlighter-params="brush: powershell; gutter: false; theme: Confluence" data-theme="Confluence">mvn archetype:generate `
+&quot;-DarchetypeGroupId=at.rcm.maven.archetype&quot; `
+&quot;-DarchetypeArtifactId=tomcat-archetype&quot; `
+&quot;-DarchetypeVersion=1.2.1&quot; `
+&quot;-DgroupId=ist.mir.egal&quot; `
+&quot;-DartifactId=environment&quot; `
+&quot;-Dversion=1.0-SNAPSHOT&quot; `
+&quot;-Dgoals=compile&quot;</pre>
+</div></div><h2 id="TomcatfürBudgeTrackEntwicklungeinrichten-MöglicheParametermitdefaultWerten">Mögliche Parameter mit default Werten</h2><ul><li>groupId=<a class="external-link" href="http://archetype.it" rel="nofollow">archetype.it</a> &lt;&lt; ist nicht relevant aber zwingend einzugeben</li><li>artifactId=environment &lt;&lt; der Ordnername, worin der Tomcat sich befindet</li><li>version=0.1-SNAPSHOT &lt;&lt; ist nicht relevant aber zwingend einzugeben</li><li>tomcat=8.5.57</li><li>jossoUrl=localhost:8080</li><li>jossoVersion=1.4</li><li>persist=false</li><li>cleanWebapps=false</li><li>tomcatUser=tomcat</li><li>tomcatPass=tomcat</li></ul><h2 id="TomcatfürBudgeTrackEntwicklungeinrichten-ZusätzlicheOrdner">Zusätzliche Ordner</h2><p>Damit der Tomcat auch leicht in seinen Urzustand gesetzt werden kann ( außer cleanWebapps ), gibt es einen zusätzlichen Ordner <em> <strong>libuser</strong> </em> im tomcat Verzeichnis, wo man Konfigurationsdateien, zusätzliche JARs, etc. ablegen kann. Dort liegt auch die Konfigurationsdatei für josso und zwei jndi-applX.properties Dateien, welche für manche Projekte als Basis für das Einlesen an zusätzlichen Werten benötigt wird ( für die Entwicklung sind es notwendige Platzhalter ).</p><h2 id="TomcatfürBudgeTrackEntwicklungeinrichten-IDE-Einbindung">IDE - Einbindung</h2><p>Damit der tomcat mit intellij richtig starten kann ist folgender Eintrag notwendig:</p><p><span class="confluence-embedded-file-wrapper confluence-embedded-manual-size"><img class="confluence-embedded-image" draggable="false" height="250" src="attachments/532121185/532121183.jpg" data-image-src="attachments/532121185/532121183.jpg" data-unresolved-comment-count="0" data-linked-resource-id="532121183" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="tomcat_startup_parameter.jpg" data-base-url="https://wiki.rbinternational.com/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="532121185" data-linked-resource-container-version="1"></span></p><p>Dieser Parameter bewirkt, dass IntelliJ alle Applikationen, welche im webapps - Ordner liegen, deployed. Ansonsten wird nur das jeweilige Artefakt ( zB BudgeTrack - Page ) deployed.</p><p><br/></p><div id="expander-945345115" class="expand-container"><div id="expander-control-945345115" class="expand-control" aria-expanded="true"><span class="expand-icon aui-icon aui-icon-small aui-iconfont-chevron-down"></span><span class="expand-control-text">Tomcat Logs einbinden [Intellij]</span></div><div id="expander-content-945345115" class="expand-content">Run configuration → Logs → '+' → beliebigen Alias eintragen (e.g.: Application Logs) → Log File Location wählen (Ordnername wo sich der installierte Tomcat befindet) e.g. ../environment/tomcat/logs → Logfile auswählen</div></div><h2 id="TomcatfürBudgeTrackEntwicklungeinrichten-Feature-Umfang">Feature-Umfang</h2><h3 id="TomcatfürBudgeTrackEntwicklungeinrichten-Version1.0">Version 1.0</h3><p>Diese Version beinhaltet folgende Features:</p><ul><li>Tomcat - Server</li><li>JOSSO - War</li><li>zusätzlicher lib - Ordner mit<ul><li>jndi-appl3.properties</li><li>jndi-appl4.properties</li><li>josso-gateway.properties</li><li>ojdbc6.jar ( Datenbanktreiber )</li></ul></li></ul><h3 id="TomcatfürBudgeTrackEntwicklungeinrichten-Version1.1">Version 1.1</h3><p>Diese Version beinhaltet folgende Features:</p><ul><li>Hostmanager - App mit wählbarem<ul><li>tomcatUser</li><li>tomcatPass</li></ul></li></ul>
+                    </div>
+
+                                                            <div class="pageSection group">
+                        <div class="pageSectionHeader">
+                            <h2 id="attachments" class="pageSectionTitle">Attachments:</h2>
+                        </div>
+
+                        <div class="greybox" align="left">
+                                                            <img src="images/icons/bullet_blue.gif" height="8" width="8" alt=""/>
+                                <a href="attachments/532121185/532121183.jpg">tomcat_startup_parameter.jpg</a> (image/jpeg)
+                                <br/>
+                                                    </div>
+                    </div>
+                    
+                                                      
+                </div>             </div> 
+            <div id="footer" role="contentinfo">
+                <section class="footer-body">
+                    <p>Document generated by Confluence on 15.03.2023 12:39</p>
+                    <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+                </section>
+            </div>
+        </div>     </body>
+</html>
